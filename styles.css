@@ -56,9 +56,24 @@ canvas {
     border: 2px solid #fff; /* White border around the canvas */
     border-radius: 10px; /* Rounded corners */
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Optional glow effect */
-    width: 90vw; /* Scale canvas width to 90% of viewport width */
-    height: auto; /* Maintain aspect ratio */
-    max-width: 200px; /* Limit maximum width to original size */
-    margin: 0 auto; /* Center the canvas */
-    display: block; /* Prevent inline-block issues */
+    touch-action: none; /* Disable touch-based scrolling or zooming */
+}
+
+/* Start Overlay Styling */
+#start-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+    color: #fff; /* White text */
+    font-size: 1.5rem;
+    font-family: 'Mrs Saint Delafield', cursive;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px; /* Match canvas border radius */
+    cursor: pointer; /* Change cursor to indicate interactivity */
+    z-index: 10; /* Ensure overlay is above the canvas */
 }
