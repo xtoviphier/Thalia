@@ -1,67 +1,59 @@
-// Snake Game Logic
-const snakeCanvas = document.getElementById('snake-game');
-const snakeCtx = snakeCanvas.getContext('2d');
-
-let snake = [{ x: 100, y: 100 }]; // Initial position of the snake
-let direction = { x: 0, y: 0 }; // Movement direction
-let food = { x: 30, y: 30 }; // Food position
-let speed = 5; // Reduced speed (half the original)
-
-function drawSnake() {
-    snakeCtx.clearRect(0, 0, snakeCanvas.width, snakeCanvas.height); // Clear the canvas
-    snakeCtx.fillStyle = 'green';
-    snake.forEach(segment => {
-        snakeCtx.fillRect(segment.x, segment.y, 10, 10); // Draw the snake
-    });
+/* Reset default margins and paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-function drawFood() {
-    snakeCtx.fillStyle = 'red';
-    snakeCtx.fillRect(food.x, food.y, 10, 10); // Draw the food
+/* Set the overall theme */
+body {
+    background-color: #000; /* Black background */
+    color: #fff; /* White text */
+    font-family: 'Mrs Saint Delafield', cursive;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
 }
 
-function updateSnake() {
-    const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
-    snake.unshift(head);
-
-    // Check if the snake eats the food
-    if (head.x === food.x && head.y === food.y) {
-        food = {
-            x: Math.floor(Math.random() * 20) * 10,
-            y: Math.floor(Math.random() * 20) * 10
-        }; // Generate new food position
-    } else {
-        snake.pop(); // Remove the tail if no food is eaten
-    }
-
-    // Prevent the snake from leaving the canvas
-    if (
-        head.x < 0 || head.x >= snakeCanvas.width ||
-        head.y < 0 || head.y >= snakeCanvas.height
-    ) {
-        resetGame(); // Reset the game if the snake hits the wall
-    }
+/* Header Styles */
+header {
+    text-align: center;
+    padding: 20px 0;
 }
 
-function resetGame() {
-    snake = [{ x: 100, y: 100 }];
-    direction = { x: 0, y: 0 };
-    food = { x: 30, y: 30 };
+#thalia-title {
+    font-size: 4rem; /* Large title */
+    font-family: 'Mrs Saint Delafield', cursive;
+    text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.5); /* Optional shadow effect */
 }
 
-function gameLoop() {
-    updateSnake();
-    drawSnake();
-    drawFood();
-    requestAnimationFrame(gameLoop); // Continuous animation loop
+/* Avatar Section */
+#avatar-section {
+    margin-bottom: 20px;
 }
 
-document.addEventListener('keydown', event => {
-    // Change direction based on arrow key presses
-    if (event.key === 'ArrowUp' && direction.y === 0) direction = { x: 0, y: -speed };
-    if (event.key === 'ArrowDown' && direction.y === 0) direction = { x: 0, y: speed };
-    if (event.key === 'ArrowLeft' && direction.x === 0) direction = { x: -speed, y: 0 };
-    if (event.key === 'ArrowRight' && direction.x === 0) direction = { x: speed, y: 0 };
-});
+/* Games Section */
+#games-section {
+    position: fixed; /* Fix the games section to the left side of the screen */
+    left: 20px; /* Space from the left edge */
+    top: 20px; /* Space from the top edge */
+    width: 250px; /* Width of the games container */
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Space between games */
+}
 
-gameLoop(); // Start the game loop
+/* Snake Container */
+#snake-container {
+    position: relative;
+}
+
+/* Game Canvas Styling */
+canvas {
+    background-color: #111; /* Dark gray background for contrast */
+    border: 2px solid #fff; /* White border around the canvas */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Optional glow effect */
+}
