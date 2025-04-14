@@ -40,20 +40,3 @@ header {
     left: 20px; /* Space from the left edge */
     top: 20px; /* Space from the top edge */
     width: 250px; /* Width of the games container */
-    display: flex;
-    flex-direction: column;
-    gap: 20px; /* Space between games */
-}
-
-/* Snake Container */
-#snake-container {
-    position: relative;
-}
-
-/* Game Canvas Styling */
-canvas {
-    background-color: #111; /* Dark gray background for contrast */
-    border: 2px solid #fff; /* White border around the canvas */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Optional glow effect */
-}
