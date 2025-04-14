@@ -1,27 +1,11 @@
-// Pac-Man Game Logic
-const pacmanCanvas = document.getElementById('pacman-game');
-const pacmanCtx = pacmanCanvas.getContext('2d');
-
-function drawPacman() {
-    pacmanCtx.clearRect(0, 0, pacmanCanvas.width, pacmanCanvas.height); // Clear the canvas
-    pacmanCtx.beginPath();
-    pacmanCtx.arc(100, 100, 50, 0.25 * Math.PI, 1.75 * Math.PI); // Draw Pac-Man's mouth
-    pacmanCtx.lineTo(100, 100);
-    pacmanCtx.fillStyle = 'yellow';
-    pacmanCtx.fill();
-    pacmanCtx.closePath();
-}
-
-drawPacman(); // Draw Pac-Man on the canvas
-
-
 // Snake Game Logic
 const snakeCanvas = document.getElementById('snake-game');
 const snakeCtx = snakeCanvas.getContext('2d');
 
-let snake = [{ x: 150, y: 150 }]; // Initial position of the snake
+let snake = [{ x: 100, y: 100 }]; // Initial position of the snake
 let direction = { x: 0, y: 0 }; // Movement direction
 let food = { x: 30, y: 30 }; // Food position
+let speed = 5; // Reduced speed (half the original)
 
 function drawSnake() {
     snakeCtx.clearRect(0, 0, snakeCanvas.width, snakeCanvas.height); // Clear the canvas
@@ -60,7 +44,7 @@ function updateSnake() {
 }
 
 function resetGame() {
-    snake = [{ x: 150, y: 150 }];
+    snake = [{ x: 100, y: 100 }];
     direction = { x: 0, y: 0 };
     food = { x: 30, y: 30 };
 }
@@ -74,10 +58,10 @@ function gameLoop() {
 
 document.addEventListener('keydown', event => {
     // Change direction based on arrow key presses
-    if (event.key === 'ArrowUp' && direction.y === 0) direction = { x: 0, y: -10 };
-    if (event.key === 'ArrowDown' && direction.y === 0) direction = { x: 0, y: 10 };
-    if (event.key === 'ArrowLeft' && direction.x === 0) direction = { x: -10, y: 0 };
-    if (event.key === 'ArrowRight' && direction.x === 0) direction = { x: 10, y: 0 };
+    if (event.key === 'ArrowUp' && direction.y === 0) direction = { x: 0, y: -speed };
+    if (event.key === 'ArrowDown' && direction.y === 0) direction = { x: 0, y: speed };
+    if (event.key === 'ArrowLeft' && direction.x === 0) direction = { x: -speed, y: 0 };
+    if (event.key === 'ArrowRight' && direction.x === 0) direction = { x: speed, y: 0 };
 });
 
 gameLoop(); // Start the game loop
