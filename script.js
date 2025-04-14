@@ -83,15 +83,15 @@ snakeCanvas.addEventListener('touchend', (event) => {
     const deltaX = endX - startX;
     const deltaY = endY - startY;
 
-    // Detect swipe direction
+    // Detect swipe direction with a smaller threshold
     if (Math.abs(deltaX) > Math.abs(deltaY)) {
         // Horizontal swipe
-        if (deltaX > 40 && direction.x === 0) direction = { x: speed, y: 0 }; // Swipe right
-        if (deltaX < -40 && direction.x === 0) direction = { x: -speed, y: 0 }; // Swipe left
+        if (deltaX > 20 && direction.x === 0) direction = { x: speed, y: 0 }; // Swipe right
+        if (deltaX < -20 && direction.x === 0) direction = { x: -speed, y: 0 }; // Swipe left
     } else {
         // Vertical swipe
-        if (deltaY > 40 && direction.y === 0) direction = { x: 0, y: speed }; // Swipe down
-        if (deltaY < -40 && direction.y === 0) direction = { x: 0, y: -speed }; // Swipe up
+        if (deltaY > 20 && direction.y === 0) direction = { x: 0, y: speed }; // Swipe down
+        if (deltaY < -20 && direction.y === 0) direction = { x: 0, y: -speed }; // Swipe up
     }
 });
 
