@@ -7,6 +7,10 @@ let direction = { x: 0, y: 0 }; // Movement direction
 let food = { x: 30, y: 30 }; // Food position
 let speed = 5; // Reduced speed (half the original)
 
+// Variables for touch controls
+let startX = 0;
+let startY = 0;
+
 function drawSnake() {
     snakeCtx.clearRect(0, 0, snakeCanvas.width, snakeCanvas.height); // Clear the canvas
     snakeCtx.fillStyle = 'green';
@@ -56,12 +60,39 @@ function gameLoop() {
     requestAnimationFrame(gameLoop); // Continuous animation loop
 }
 
+// Arrow key controls (for desktop users)
 document.addEventListener('keydown', event => {
-    // Change direction based on arrow key presses
     if (event.key === 'ArrowUp' && direction.y === 0) direction = { x: 0, y: -speed };
     if (event.key === 'ArrowDown' && direction.y === 0) direction = { x: 0, y: speed };
     if (event.key === 'ArrowLeft' && direction.x === 0) direction = { x: -speed, y: 0 };
     if (event.key === 'ArrowRight' && direction.x === 0) direction = { x: speed, y: 0 };
+});
+
+// Touch controls (for mobile users)
+snakeCanvas.addEventListener('touchstart', (event) => {
+    const touch = event.touches[0];
+    startX = touch.clientX;
+    startY = touch.clientY;
+});
+
+snakeCanvas.addEventListener('touchend', (event) => {
+    const touch = event.changedTouches[0];
+    const endX = touch.clientX;
+    const endY = touch.clientY;
+
+    const deltaX = endX - startX;
+    const deltaY = endY - startY;
+
+    // Detect swipe direction
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        // Horizontal swipe
+        if (deltaX > 40 && direction.x === 0) direction = { x: speed, y: 0 }; // Swipe right
+        if (deltaX < -40 && direction.x === 0) direction = { x: -speed, y: 0 }; // Swipe left
+    } else {
+        // Vertical swipe
+        if (deltaY > 40 && direction.y === 0) direction = { x: 0, y: speed }; // Swipe down
+        if (deltaY < -40 && direction.y === 0) direction = { x: 0, y: -speed }; // Swipe up
+    }
 });
 
 gameLoop(); // Start the game loop
