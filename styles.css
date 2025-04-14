@@ -77,4 +77,5 @@ canvas {
     border-radius: 10px; /* Match canvas border radius */
     cursor: pointer; /* Change cursor to indicate interactivity */
     z-index: 10; /* Ensure overlay is above the canvas */
+    pointer-events: auto; /* Ensure the overlay is clickable */
 }
