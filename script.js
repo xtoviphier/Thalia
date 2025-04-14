@@ -49,11 +49,11 @@ function resetGame() {
     food = { x: 30, y: 30 };
 }
 
-function gameLoop() {
+function snakeGameLoop() {
     updateSnake();
     drawSnake();
     drawFood();
-    requestAnimationFrame(gameLoop); // Continuous animation loop
+    requestAnimationFrame(snakeGameLoop); // Continuous animation loop
 }
 
 document.addEventListener('keydown', event => {
@@ -64,4 +64,57 @@ document.addEventListener('keydown', event => {
     if (event.key === 'ArrowRight' && direction.x === 0) direction = { x: speed, y: 0 };
 });
 
-gameLoop(); // Start the game loop
+snakeGameLoop(); // Start the Snake game loop
+
+// Pac-Man Game Logic
+const pacmanCanvas = document.getElementById('pacman-game');
+const pacmanCtx = pacmanCanvas.getContext('2d');
+
+let pacman = { x: 100, y: 100 }; // Initial position of Pac-Man
+let pacmanDirection = { x: 0, y: 0 }; // Movement direction
+let pacmanSpeed = 5; // Reduced speed (half the original)
+
+function drawPacman() {
+    pacmanCtx.clearRect(0, 0, pacmanCanvas.width, pacmanCanvas.height); // Clear the canvas
+    pacmanCtx.beginPath();
+    pacmanCtx.arc(pacman.x, pacman.y, 50, 0.25 * Math.PI, 1.75 * Math.PI); // Draw Pac-Man's mouth
+    pacmanCtx.lineTo(pacman.x, pacman.y);
+    pacmanCtx.fillStyle = 'yellow';
+    pacmanCtx.fill();
+    pacmanCtx.closePath();
+}
+
+function updatePacman() {
+    // Update Pac-Man's position based on the current direction
+    pacman.x += pacmanDirection.x * pacmanSpeed;
+    pacman.y += pacmanDirection.y * pacmanSpeed;
+
+    // Prevent Pac-Man from leaving the canvas
+    if (
+        pacman.x < 0 || pacman.x >= pacmanCanvas.width ||
+        pacman.y < 0 || pacman.y >= pacmanCanvas.height
+    ) {
+        resetPacmanGame(); // Reset the game if Pac-Man hits the wall
+    }
+}
+
+function resetPacmanGame() {
+    pacman = { x: 100, y: 100 };
+    pacmanDirection = { x: 0, y: 0 };
+}
+
+function pacmanGameLoop() {
+    updatePacman();
+    drawPacman();
+    requestAnimationFrame(pacmanGameLoop); // Continuous animation loop
+}
+
+document.addEventListener('keydown', event => {
+    // Change direction based on arrow key presses
+    if (event.key === 'ArrowUp' && pacmanDirection.y === 0) pacmanDirection = { x: 0, y: -pacmanSpeed };
+    if (event.key === 'ArrowDown' && pacmanDirection.y === 0) pacmanDirection = { x: 0, y: pacmanSpeed };
+    if (event.key === 'ArrowLeft' && pacmanDirection.x === 0) pacmanDirection = { x: -pacmanSpeed, y: 0 };
+    if (event.key === 'ArrowRight' && pacmanDirection.x === 0) pacmanDirection = { x: pacmanSpeed, y: 0 };
+});
+
+pacmanGameLoop(); // Start the Pac-Man game loop
