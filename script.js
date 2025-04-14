@@ -17,6 +17,7 @@ let startY = 0;
 
 // Game state
 let gameStarted = false; // Track whether the game has started
+let gamePaused = false; // Track whether the game is paused
 
 function drawSnake() {
     snakeCtx.clearRect(0, 0, snakeCanvas.width, snakeCanvas.height); // Clear the canvas
@@ -61,7 +62,7 @@ function resetGame() {
 }
 
 function gameLoop() {
-    if (gameStarted) {
+    if (gameStarted && !gamePaused) {
         updateSnake();
         drawSnake();
         drawFood();
@@ -71,7 +72,7 @@ function gameLoop() {
 
 // Arrow key controls (for desktop users)
 document.addEventListener('keydown', event => {
-    if (!gameStarted) return; // Ignore key presses until the game starts
+    if (!gameStarted || gamePaused) return; // Ignore key presses if the game isn't running
     if (event.key === 'ArrowUp' && direction.y === 0) direction = { x: 0, y: -speed };
     if (event.key === 'ArrowDown' && direction.y === 0) direction = { x: 0, y: speed };
     if (event.key === 'ArrowLeft' && direction.x === 0) direction = { x: -speed, y: 0 };
@@ -80,14 +81,14 @@ document.addEventListener('keydown', event => {
 
 // Touch controls (for mobile users)
 snakeCanvas.addEventListener('touchstart', (event) => {
-    if (!gameStarted) return; // Ignore touch events until the game starts
+    if (!gameStarted || gamePaused) return; // Ignore touch events if the game isn't running
     const touch = event.touches[0];
     startX = touch.clientX;
     startY = touch.clientY;
 });
 
 snakeCanvas.addEventListener('touchend', (event) => {
-    if (!gameStarted) return; // Ignore touch events until the game starts
+    if (!gameStarted || gamePaused) return; // Ignore touch events if the game isn't running
     const touch = event.changedTouches[0];
     const endX = touch.clientX;
     const endY = touch.clientY;
@@ -107,11 +108,36 @@ snakeCanvas.addEventListener('touchend', (event) => {
     }
 });
 
-// Start the game when the overlay is clicked
+// Start or pause the game when the overlay is clicked
 const startOverlay = document.getElementById('start-overlay');
 startOverlay.addEventListener('click', () => {
-    gameStarted = true; // Start the game
-    startOverlay.style.display = 'none'; // Hide the overlay
+    if (!gameStarted) {
+        // Start the game
+        gameStarted = true;
+        gamePaused = false;
+        startOverlay.style.display = 'none'; // Hide the overlay
+    } else {
+        // Pause the game
+        gamePaused = !gamePaused;
+        if (gamePaused) {
+            startOverlay.textContent = 'Click to Resume';
+            startOverlay.style.display = 'flex'; // Show the overlay
+        } else {
+            startOverlay.textContent = 'Click to Pause';
+            startOverlay.style.display = 'none'; // Hide the overlay
+        }
+    }
+});
+
+// Click outside the canvas to pause the game
+document.addEventListener('click', (event) => {
+    if (!snakeCanvas.contains(event.target)) {
+        if (gameStarted && !gamePaused) {
+            gamePaused = true;
+            startOverlay.textContent = 'Click to Resume';
+            startOverlay.style.display = 'flex'; // Show the overlay
+        }
+    }
 });
 
 gameLoop(); // Start the game loop
