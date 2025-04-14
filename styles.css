@@ -1,57 +1,65 @@
-/* 
- * Reset default margins and paddings 
- */
+/* Reset default margins and paddings */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* 
- * Set the overall theme of the website 
- */
+/* Set the overall theme */
 body {
     background-color: #000; /* Black background */
     color: #fff; /* White text */
-    font-family: 'Mrs Saint Delafield', cursive; /* Use the selected Google Font */
+    font-family: 'Mrs Saint Delafield', cursive;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center content horizontally */
-    justify-content: center; /* Center content vertically */
-    min-height: 100vh; /* Ensure the body takes up the full viewport height */
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
 }
 
-/* 
- * Header Section 
- */
+/* Header Styles */
 header {
-    text-align: center; /* Center-align the title */
-    padding: 20px 0; /* Add vertical spacing */
+    text-align: center;
+    padding: 20px 0;
 }
 
 #thalia-title {
-    font-size: 4rem; /* Large and prominent title */
-    font-family: 'Mrs Saint Delafield', cursive; /* Match the font style */
-    text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.5); /* Subtle glow effect */
+    font-size: 4rem; /* Large title */
+    font-family: 'Mrs Saint Delafield', cursive;
+    text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.5); /* Optional shadow effect */
 }
 
-/* 
- * Avatar Section 
- */
+/* Avatar Section */
 #avatar-section {
-    max-width: 600px; /* Limit the width of the avatar container */
-    text-align: center; /* Center-align the image */
-    padding: 20px; /* Add spacing around the avatar */
+    margin-bottom: 20px;
 }
 
-.avatar-container {
+/* Games Section */
+#games-section {
+    position: fixed; /* Fix the games section to the left side of the screen */
+    left: 20px; /* Space from the left edge */
+    top: 20px; /* Space from the top edge */
+    width: 250px; /* Width of the games container */
     display: flex;
-    justify-content: center; /* Center the avatar horizontally */
+    flex-direction: column;
+    gap: 20px; /* Space between Pac-Man and Snake */
 }
 
-#thalia-avatar {
-    max-width: 100%; /* Ensure the image scales properly */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 10px; /* Rounded corners for a polished look */
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Soft glow effect around the image */
+/* Pac-Man Container */
+#pacman-container {
+    position: relative;
+}
+
+/* Snake Container */
+#snake-container {
+    position: absolute;
+    bottom: 0; /* Place Snake at the bottom */
+}
+
+/* Game Canvas Styling */
+canvas {
+    background-color: #111; /* Dark gray background for contrast */
+    border: 2px solid #fff; /* White border around the canvas */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Optional glow effect */
 }
