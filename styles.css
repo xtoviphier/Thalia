@@ -38,22 +38,21 @@ header {
 #games-section {
     position: fixed; /* Fix the games section to the left side of the screen */
     left: 20px; /* Space from the left edge */
-    top: 20px; /* Space from the top edge */
     width: 250px; /* Width of the games container */
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Space between Pac-Man and Snake */
-}
-
-/* Pac-Man Container */
-#pacman-container {
-    position: relative;
+    gap: 20px; /* Space between games */
 }
 
 /* Snake Container */
 #snake-container {
+    position: relative;
+}
+
+/* Pac-Man Container */
+#pacman-container {
     position: absolute;
-    bottom: 0; /* Place Snake at the bottom */
+    bottom: 20px; /* Place Pac-Man at the bottom */
 }
 
 /* Game Canvas Styling */
