@@ -120,10 +120,16 @@ startOverlay.addEventListener('click', () => {
     }
 });
 
-// Reset the game when clicking outside the canvas
+// Reset the game when clicking outside the canvas (handles both click and touch events)
 document.addEventListener('click', (event) => {
     if (!snakeCanvas.contains(event.target)) {
         resetGame(); // Reset the game state
+    }
+});
+
+document.addEventListener('touchstart', (event) => {
+    if (!snakeCanvas.contains(event.target)) {
+        resetGame(); // Reset the game state for touch devices
     }
 });
 
