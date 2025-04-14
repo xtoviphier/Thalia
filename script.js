@@ -44,8 +44,8 @@ function updateSnake() {
 
     // Prevent the snake from leaving the canvas
     if (
-        head.x < 0 || head.x >= 200 || // Fixed boundary (200px width)
-        head.y < 0 || head.y >= 200   // Fixed boundary (200px height)
+        head.x < 0 || head.x >= snakeCanvas.width ||
+        head.y < 0 || head.y >= snakeCanvas.height
     ) {
         resetGame(); // Reset the game if the snake hits the wall
     }
