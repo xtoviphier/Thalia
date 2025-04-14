@@ -1,5 +1,9 @@
 // Snake Game Logic
 const snakeCanvas = document.getElementById('snake-game');
+if (!snakeCanvas) {
+    console.error('Canvas element not found!');
+}
+
 const snakeCtx = snakeCanvas.getContext('2d');
 
 let snake = [{ x: 100, y: 100 }]; // Initial position of the snake
@@ -10,6 +14,20 @@ let speed = 5; // Reduced speed (half the original)
 // Variables for touch controls
 let startX = 0;
 let startY = 0;
+
+// Scale canvas for responsiveness
+function resizeCanvas() {
+    const scaleFactor = window.innerWidth < 600 ? 0.8 : 1; // Scale down for small screens
+    snakeCanvas.width = 400 * scaleFactor;
+    snakeCanvas.height = 400 * scaleFactor;
+
+    // Redraw the game after resizing
+    drawSnake();
+    drawFood();
+}
+
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas(); // Call once on page load
 
 function drawSnake() {
     snakeCtx.clearRect(0, 0, snakeCanvas.width, snakeCanvas.height); // Clear the canvas
@@ -51,6 +69,7 @@ function resetGame() {
     snake = [{ x: 100, y: 100 }];
     direction = { x: 0, y: 0 };
     food = { x: 30, y: 30 };
+    resizeCanvas(); // Ensure canvas resets properly
 }
 
 function gameLoop() {
@@ -70,18 +89,22 @@ document.addEventListener('keydown', event => {
 
 // Touch controls (for mobile users)
 snakeCanvas.addEventListener('touchstart', (event) => {
+    console.log('Touch started'); // Debugging log
     const touch = event.touches[0];
     startX = touch.clientX;
     startY = touch.clientY;
 });
 
 snakeCanvas.addEventListener('touchend', (event) => {
+    console.log('Touch ended'); // Debugging log
     const touch = event.changedTouches[0];
     const endX = touch.clientX;
     const endY = touch.clientY;
 
     const deltaX = endX - startX;
     const deltaY = endY - startY;
+
+    console.log(`DeltaX: ${deltaX}, DeltaY: ${deltaY}`); // Debugging log
 
     // Detect swipe direction with a smaller threshold
     if (Math.abs(deltaX) > Math.abs(deltaY)) {
