@@ -76,4 +76,6 @@ canvas {
     border-radius: 10px; /* Match canvas border radius */
     cursor: pointer; /* Change cursor to indicate interactivity */
     z-index: 10; /* Ensure overlay is above the canvas */
+    margin: 0; /* Remove any unintended margins */
+    padding: 0; /* Remove any unintended padding */
 }
