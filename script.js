@@ -15,6 +15,9 @@ let speed = 5; // Reduced speed (half the original)
 let startX = 0;
 let startY = 0;
 
+// Game state
+let gameStarted = false; // Track whether the game has started
+
 function drawSnake() {
     snakeCtx.clearRect(0, 0, snakeCanvas.width, snakeCanvas.height); // Clear the canvas
     snakeCtx.fillStyle = 'green';
@@ -58,14 +61,17 @@ function resetGame() {
 }
 
 function gameLoop() {
-    updateSnake();
-    drawSnake();
-    drawFood();
+    if (gameStarted) {
+        updateSnake();
+        drawSnake();
+        drawFood();
+    }
     requestAnimationFrame(gameLoop); // Continuous animation loop
 }
 
 // Arrow key controls (for desktop users)
 document.addEventListener('keydown', event => {
+    if (!gameStarted) return; // Ignore key presses until the game starts
     if (event.key === 'ArrowUp' && direction.y === 0) direction = { x: 0, y: -speed };
     if (event.key === 'ArrowDown' && direction.y === 0) direction = { x: 0, y: speed };
     if (event.key === 'ArrowLeft' && direction.x === 0) direction = { x: -speed, y: 0 };
@@ -74,12 +80,14 @@ document.addEventListener('keydown', event => {
 
 // Touch controls (for mobile users)
 snakeCanvas.addEventListener('touchstart', (event) => {
+    if (!gameStarted) return; // Ignore touch events until the game starts
     const touch = event.touches[0];
     startX = touch.clientX;
     startY = touch.clientY;
 });
 
 snakeCanvas.addEventListener('touchend', (event) => {
+    if (!gameStarted) return; // Ignore touch events until the game starts
     const touch = event.changedTouches[0];
     const endX = touch.clientX;
     const endY = touch.clientY;
@@ -97,6 +105,13 @@ snakeCanvas.addEventListener('touchend', (event) => {
         if (deltaY > 10 && direction.y === 0) direction = { x: 0, y: speed }; // Swipe down
         if (deltaY < -10 && direction.y === 0) direction = { x: 0, y: -speed }; // Swipe up
     }
+});
+
+// Start the game when the overlay is clicked
+const startOverlay = document.getElementById('start-overlay');
+startOverlay.addEventListener('click', () => {
+    gameStarted = true; // Start the game
+    startOverlay.style.display = 'none'; // Hide the overlay
 });
 
 gameLoop(); // Start the game loop
