@@ -74,14 +74,12 @@ document.addEventListener('keydown', event => {
 
 // Touch controls (for mobile users)
 snakeCanvas.addEventListener('touchstart', (event) => {
-    event.preventDefault(); // Prevent default touch behavior
     const touch = event.touches[0];
     startX = touch.clientX;
     startY = touch.clientY;
-}, { passive: false }); // Ensure preventDefault works
+});
 
 snakeCanvas.addEventListener('touchend', (event) => {
-    event.preventDefault(); // Prevent default touch behavior
     const touch = event.changedTouches[0];
     const endX = touch.clientX;
     const endY = touch.clientY;
@@ -99,6 +97,6 @@ snakeCanvas.addEventListener('touchend', (event) => {
         if (deltaY > 20 && direction.y === 0) direction = { x: 0, y: speed }; // Swipe down
         if (deltaY < -20 && direction.y === 0) direction = { x: 0, y: -speed }; // Swipe up
     }
-}, { passive: false }); // Ensure preventDefault works
+});
 
 gameLoop(); // Start the game loop
