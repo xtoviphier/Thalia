@@ -74,12 +74,14 @@ document.addEventListener('keydown', event => {
 
 // Touch controls (for mobile users)
 snakeCanvas.addEventListener('touchstart', (event) => {
+    event.preventDefault(); // Prevent default touch behavior
     const touch = event.touches[0];
     startX = touch.clientX;
     startY = touch.clientY;
 });
 
 snakeCanvas.addEventListener('touchend', (event) => {
+    event.preventDefault(); // Prevent default touch behavior
     const touch = event.changedTouches[0];
     const endX = touch.clientX;
     const endY = touch.clientY;
