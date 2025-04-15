@@ -115,20 +115,21 @@ snakeCanvas.addEventListener('touchend', (event) => {
 const startOverlay = document.getElementById('start-overlay');
 startOverlay.addEventListener('click', () => {
     if (!gameStarted) {
-        gameStarted = true; // Start the game
+        gameStarted = true; // Explicitly set the game state to started
         startOverlay.style.display = 'none'; // Hide the overlay
+        console.log('Game started!'); // Debugging log to confirm the game starts
     }
 });
 
 // Reset the game when clicking outside the canvas (handles both click and touch events)
 document.addEventListener('click', (event) => {
-    if (!snakeCanvas.contains(event.target)) {
+    if (!snakeCanvas.contains(event.target) && gameStarted) {
         resetGame(); // Reset the game state
     }
 });
 
 document.addEventListener('touchstart', (event) => {
-    if (!snakeCanvas.contains(event.target)) {
+    if (!snakeCanvas.contains(event.target) && gameStarted) {
         resetGame(); // Reset the game state for touch devices
     }
 });
