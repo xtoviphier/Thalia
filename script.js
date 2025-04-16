@@ -90,6 +90,7 @@ let startX = 0;
 let startY = 0;
 
 snakeCanvas.addEventListener('touchstart', (event) => {
+    if (!gameStarted) return; // Ignore touch events until the game starts
     event.preventDefault(); // Prevent default touch behavior
     const touch = event.touches[0];
     startX = touch.clientX;
@@ -97,6 +98,7 @@ snakeCanvas.addEventListener('touchstart', (event) => {
 });
 
 snakeCanvas.addEventListener('touchend', (event) => {
+    if (!gameStarted) return; // Ignore touch events until the game starts
     event.preventDefault(); // Prevent default touch behavior
     const touch = event.changedTouches[0];
     const endX = touch.clientX;
