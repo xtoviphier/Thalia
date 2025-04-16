@@ -48,8 +48,6 @@ header {
 /* Snake Container */
 #snake-container {
     position: relative;
-    width: 200px; /* Match canvas width */
-    height: 200px; /* Match canvas height */
 }
 
 /* Game Canvas Styling */
@@ -59,24 +57,4 @@ canvas {
     border-radius: 10px; /* Rounded corners */
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Optional glow effect */
     touch-action: none; /* Disable touch-based scrolling or zooming */
-    display: block; /* Ensure canvas behaves as a block element */
-}
-
-/* Start Overlay Styling */
-#start-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%; /* Match canvas width */
-    height: 100%; /* Match canvas height */
-    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
-    color: #fff; /* White text */
-    font-size: 1.5rem;
-    font-family: 'Mrs Saint Delafield', cursive;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px; /* Match canvas border radius */
-    cursor: pointer; /* Change cursor to indicate interactivity */
-    z-index: 10; /* Ensure overlay is above the canvas */
 }
