@@ -1,82 +1,52 @@
-/* Reset default margins and paddings */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thalia Website</title>
+    <!-- Add Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+    <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1 id="thalia-title">Thalia</h1>
+    </header>
 
-/* Set the overall theme */
-body {
-    background-color: #000; /* Black background */
-    color: #fff; /* White text */
-    font-family: 'Mrs Saint Delafield', cursive;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-}
+    <!-- Avatar Section -->
+    <section id="avatar-section">
+        <div class="avatar-container">
+            <!-- Embed D-ID Avatar -->
+            <script
+                type="module"
+                src="https://agent.d-id.com/v1/index.js"
+                data-name="did-agent"
+                data-mode="fabio"
+                data-client-key="Z29vZ2xlLW9hdXRoMnwxMDM4Mjg5OTE2MjM3MzYyNjU4MTY6eWxjblc0R2ptbVE1a3FCT20ydy1K"
+                data-agent-id="agt_LoRe6Csk"
+                data-monitor="true">
+            </script>
+        </div>
+    </section>
 
-/* Header Styles */
-header {
-    text-align: center;
-    padding: 20px 0;
-}
+    <!-- Games Section -->
+    <section id="games-section">
+        <!-- Snake Game (Top Left) -->
+        <div id="snake-container">
+            <h3>Snake</h3>
+            <div id="start-overlay">Click to Start</div>
+            <canvas id="snake-game" width="200" height="200"></canvas>
+        </div>
+    </section>
 
-#thalia-title {
-    font-size: 4rem; /* Large title */
-    font-family: 'Mrs Saint Delafield', cursive;
-    text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.5); /* Optional shadow effect */
-}
+    <!-- Footer (Optional) -->
+    <footer>
+        <p>&copy; 2025 Thalia xtoviphier</p>
+    </footer>
 
-/* Avatar Section */
-#avatar-section {
-    margin-bottom: 20px;
-}
-
-/* Games Section */
-#games-section {
-    position: fixed; /* Fix the games section to the left side of the screen */
-    left: 20px; /* Space from the left edge */
-    top: 20px; /* Space from the top edge */
-    width: 250px; /* Width of the games container */
-    display: flex;
-    flex-direction: column;
-    gap: 20px; /* Space between games */
-}
-
-/* Snake Container */
-#snake-container {
-    position: relative;
-    width: 200px; /* Match canvas width */
-    height: 200px; /* Match canvas height */
-}
-
-/* Game Canvas Styling */
-canvas {
-    background-color: #111; /* Dark gray background for contrast */
-    border: 2px solid #fff; /* White border around the canvas */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Optional glow effect */
-    touch-action: none; /* Disable touch-based scrolling or zooming */
-    display: block; /* Ensure canvas behaves as a block element */
-}
-
-/* Start Overlay Styling */
-#start-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%; /* Match canvas width */
-    height: 100%; /* Match canvas height */
-    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
-    color: #fff; /* White text */
-    font-size: 1.5rem;
-    font-family: 'Mrs Saint Delafield', cursive;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px; /* Match canvas border radius */
-    cursor: pointer; /* Change cursor to indicate interactivity */
-    z-index: 10; /* Ensure overlay is above the canvas */
-}
+    <!-- Link to the JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
