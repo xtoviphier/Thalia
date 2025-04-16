@@ -10,10 +10,7 @@ let snake = [{ x: 100, y: 100 }]; // Initial position of the snake
 let direction = { x: 0, y: 0 }; // Movement direction
 let food = { x: 30, y: 30 }; // Food position
 let speed = 5; // Reduced speed (half the original)
-
-// Variables for touch controls
-let startX = 0;
-let startY = 0;
+let gameStarted = false; // Track whether the game has started
 
 function drawSnake() {
     snakeCtx.clearRect(0, 0, snakeCanvas.width, snakeCanvas.height); // Clear the canvas
@@ -55,17 +52,33 @@ function resetGame() {
     snake = [{ x: 100, y: 100 }];
     direction = { x: 0, y: 0 };
     food = { x: 30, y: 30 };
+    gameStarted = false; // Reset the game state
+    const startOverlay = document.getElementById('start-overlay');
+    startOverlay.style.display = 'flex'; // Show the overlay
 }
 
 function gameLoop() {
-    updateSnake();
-    drawSnake();
-    drawFood();
+    if (gameStarted) {
+        updateSnake();
+        drawSnake();
+        drawFood();
+    }
     requestAnimationFrame(gameLoop); // Continuous animation loop
 }
 
+// Start the game when the overlay is clicked
+const startOverlay = document.getElementById('start-overlay');
+startOverlay.addEventListener('click', () => {
+    if (!gameStarted) {
+        gameStarted = true; // Start the game
+        direction = { x: speed, y: 0 }; // Move the snake to the right initially
+        startOverlay.style.display = 'none'; // Hide the overlay
+    }
+});
+
 // Arrow key controls (for desktop users)
 document.addEventListener('keydown', event => {
+    if (!gameStarted) return; // Ignore key presses until the game starts
     if (event.key === 'ArrowUp' && direction.y === 0) direction = { x: 0, y: -speed };
     if (event.key === 'ArrowDown' && direction.y === 0) direction = { x: 0, y: speed };
     if (event.key === 'ArrowLeft' && direction.x === 0) direction = { x: -speed, y: 0 };
@@ -73,6 +86,9 @@ document.addEventListener('keydown', event => {
 });
 
 // Touch controls (for mobile users)
+let startX = 0;
+let startY = 0;
+
 snakeCanvas.addEventListener('touchstart', (event) => {
     event.preventDefault(); // Prevent default touch behavior
     const touch = event.touches[0];
@@ -98,6 +114,13 @@ snakeCanvas.addEventListener('touchend', (event) => {
         // Vertical swipe
         if (deltaY > 20 && direction.y === 0) direction = { x: 0, y: speed }; // Swipe down
         if (deltaY < -20 && direction.y === 0) direction = { x: 0, y: -speed }; // Swipe up
+    }
+});
+
+// Reset the game when clicking outside the canvas
+document.addEventListener('click', (event) => {
+    if (!snakeCanvas.contains(event.target) && gameStarted) {
+        resetGame(); // Reset the game state
     }
 });
 
