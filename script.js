@@ -68,13 +68,29 @@ function gameLoop() {
 
 // Start the game when the overlay is clicked
 const startOverlay = document.getElementById('start-overlay');
-startOverlay.addEventListener('click', () => {
-    if (!gameStarted) {
-        gameStarted = true; // Start the game
-        direction = { x: speed, y: 0 }; // Move the snake to the right initially
-        startOverlay.style.display = 'none'; // Hide the overlay
-    }
-});
+if (startOverlay) {
+    startOverlay.addEventListener('click', () => {
+        if (!gameStarted) {
+            gameStarted = true; // Start the game
+            direction = { x: speed, y: 0 }; // Move the snake to the right initially
+            startOverlay.style.display = 'none'; // Hide the overlay
+            console.log('Game started!'); // Debugging log
+        }
+    });
+
+    // Add touch event listener for mobile devices
+    startOverlay.addEventListener('touchstart', (event) => {
+        event.preventDefault(); // Prevent default touch behavior
+        if (!gameStarted) {
+            gameStarted = true; // Start the game
+            direction = { x: speed, y: 0 }; // Move the snake to the right initially
+            startOverlay.style.display = 'none'; // Hide the overlay
+            console.log('Game started (touch)!'); // Debugging log
+        }
+    });
+} else {
+    console.error('Start overlay element not found!');
+}
 
 // Arrow key controls (for desktop users)
 document.addEventListener('keydown', event => {
